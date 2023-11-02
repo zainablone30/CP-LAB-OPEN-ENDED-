@@ -1,134 +1,58 @@
-#include <iostream>
+#include<iostream>
+#include<ctime>
 using namespace std;
-
-const int maxBooks = 100;
-string bookTitles[maxBooks];
-string bookAuthors[maxBooks];
-bool bookAvailability[maxBooks];
-int totalBooks = 0;
-const double finePerDay = 1.0;
-
-void displayAvailableBooks() 
+int main()
 {
-    if (totalBooks == 0) 
+	int dateborrow, datereturn, Fine, remaining, paid, choice;
+	int totaldays;
+	totaldays = datereturn - dateborrow;
+	string get, bookname;
+	cout<<"Welcome to ZA library\n";
+	cout<<"Display Available Books \n1) Borrow book \n2) Return book \n3) Exit"<<endl;
+	cout<<"Enter Your choice= ";
+	cin>>choice;
+	if (choice == 1)
 	{
-        cout << "No books available at the moment." << endl;
-        return;
-    }
-    cout << "Available Books:" << endl;
-    for (int i = 0; i < totalBooks; ++i) 
+		cout<<"Name of book: ";
+		cin>>bookname;
+		cout<<"\nToday date: ";
+		cin>>dateborrow;
+		cout<<"\nDate you want to return on: ";
+		cin>>datereturn;
+		int totaldays;
+	    totaldays = datereturn - dateborrow;
+		cout<<"You can keep this book for: "<<totaldays<<endl;
+		cout<<"\nThank you";
+	}
+	else if(choice == 2)
 	{
-        if (bookAvailability[i]) 
+		cout<<"Name of book: ";
+		cin>>bookname;
+		cout<<"\nBorrowed date: ";
+		cin>>dateborrow;
+		cout<<"\nToday date: ";
+		cin>>datereturn;
+		int totaldays;
+	    totaldays = datereturn - dateborrow;
+		cout<<"total days= "<<totaldays;
+		if(totaldays > 5)
 		{
-            cout << "Book #" << i << " - Title: " << bookTitles[i] << " | Author: " << bookAuthors[i] << endl;
-        }
-    }
-}
-void borrowBook() 
-{
-    displayAvailableBooks();
-    int booksSN;
-    cout << "Enter the book number you want to borrow: ";
-    cin >> booksSN;
-    if (booksSN >= 0 && booksSN < totalBooks) 
-	{
-        if (bookAvailability[booksSN]) 
+			Fine = 0+(totaldays - 5);
+		cout<<"\nFine= "<<Fine<<"$"<<endl;
+		}
+		else
 		{
-            bookAvailability[booksSN] = false;
-            cout << "Book #" << booksSN << " '" << bookTitles[booksSN] << "' borrowed successfully." << endl;
-        }
-		else 
-		{
-            cout << "Book is not available." << endl;
-        }
-    } 
-	else 
+			cout<<"Thank you";
+		}
+	}
+	else if (choice == 3)
 	{
-        cout << "Invalid book index." << endl;
-    }
-}
-
-void returnBook() 
-{
-    displayAvailableBooks();
-    int bookIndex, daysLate;
-    cout << "Enter the book number you are returning: ";
-    jump:
-    cin >> bookIndex;
-
-    if (bookIndex >= 0 && bookIndex < totalBooks) 
+		cout<<"THANK YOU FOR THE CONSIDERATION";
+	}
+	else
 	{
-        if (!bookAvailability[bookIndex]) 
-		{
-            bookAvailability[bookIndex] = true;
-            cout << "Book #" << bookIndex << " '" << bookTitles[bookIndex] << "' returned successfully." << endl;
-
-            cout << "Enter the number of days late (0 if not late): ";
-            cin >> daysLate;
-
-            if (daysLate > 0) 
-			{
-                double fine = daysLate * finePerDay;
-                cout << "Fine of $" << fine << " incurred for returning the book late." << endl;
-            }
-        } 
-		else 
-		{
-            cout << "Book is already available.Enter correct seriol no: ";
-            goto jump;
-        }
-    } 
-	else 
-	{
-        cout << "Invalid book index." << endl;
-    }
-}
-int main() 
-{
-    bookTitles[0] = "The Great Gatsby";
-    bookAuthors[0] = "F. Scott Fitzgerald";
-    bookAvailability[0] = true;
-
-    bookTitles[1] = "To Kill a Mockingbird";
-    bookAuthors[1] = "Harper Lee";
-    bookAvailability[1] = true;
-	bookTitles[2] = "The Lord Of The Ring";
-    bookAuthors[2] = "J. R. R. Tolkien";
-    bookAvailability[2] = true;
-    totalBooks = 3;
+		cout<<"wrong input";
+	}
+	return 0;
 	
-    int choice;
-    cout << "\n\t\t\t\t\t**** ZA LIBRARY ****" << endl;
-    do 
-	{
-        cout << "\n1. Display Available Books" << endl;
-        cout << "2. Borrow a Book" << endl;
-        cout << "3. Return a Book" << endl;
-        cout << "4. Exit" << endl;
-        cout << "Enter your choice: ";
-        cin >> choice;
-        switch (choice) 
-		{
-            case 1:
-            	system("cls");
-                displayAvailableBooks();
-                break;
-            case 2:
-            	system("cls");
-                borrowBook();
-                break;
-            case 3:
-            	system("cls");
-                returnBook();
-                break;
-            case 4:
-                cout << "Exiting the Library System. Goodbye!";
-                break;
-            default:
-                cout << "Invalid choice. Please enter a valid option.";
-                break;
-        }
-    } while (choice != 4);
-
-    return 0;
 }
